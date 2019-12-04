@@ -62,7 +62,7 @@
 
 看到下图，表示启动成功。
 
-[![img](https://github.com/xinliangnote/Go/raw/master/03-go-gin-api%20%5B%E6%96%87%E6%A1%A3%5D/images/jaeger_demo_4.png)](https://github.com/xinliangnote/Go/blob/master/03-go-gin-api [文档]/images/jaeger_demo_4.png)
+![img](https://github.com/xinliangnote/Go/raw/master/03-go-gin-api%20%5B%E6%96%87%E6%A1%A3%5D/images/jaeger_demo_4.png)
 
 #### 2、启动 Service 服务
 
