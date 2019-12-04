@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+package speak;
+
+service Speak {
+  rpc SpeakData(Request) returns (Response) {}
+}
+
+message Request { string name = 1; }
+
+message Response { string message = 1; }

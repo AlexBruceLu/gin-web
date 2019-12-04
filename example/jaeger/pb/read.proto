@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package read;
+
+service read {
+  rpc ReadData(Request) returns (Response) {}
+}
+message Request {
+  // Next available id: 1
+  string name = 1;
+}
+
+message Response {
+  // Next available id: 1
+  string message = 1;
+}

@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package listen;
+
+// 服务
+service Listen {
+  // 定义方法
+  rpc ListenData(Request) returns (Response) {}
+}
+
+message Request { string name = 1; }
+
+message Response { string message = 1; }
