@@ -1,14 +1,13 @@
-module gin-web/example/jaeger/listen
+module gin-web/example/jaeger
 
 go 1.12
 
 require (
 	github.com/golang/protobuf v1.3.2
+	github.com/gopherjs/gopherjs v0.0.0-20181103185306-d547d1d9531e // indirect
 	github.com/opentracing/opentracing-go v1.1.0
-	github.com/pkg/errors v0.8.1 // indirect
+	github.com/smallnest/rpcx v0.0.0-20191202025149-2fd1f4f7e90c
 	github.com/uber/jaeger-client-go v2.20.1+incompatible
 	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	go.uber.org/atomic v1.5.1 // indirect
 	google.golang.org/grpc v1.25.1
-	honnef.co/go/tools v0.0.0-20190523083050-ea95bdfd59fc // indirect
 )
