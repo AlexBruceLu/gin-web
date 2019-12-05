@@ -3,6 +3,9 @@ package util
 import (
 	"context"
 	"crypto/tls"
+	"gin-web/example/jaeger/speak/app/util/jaeger_server"
+	"io/ioutil"
+	"log"
 	"net/http"
 	"time"
 
@@ -31,4 +34,21 @@ func HttpGet(url string, ctx context.Context) (string, error) {
 	if err != nil {
 		return "", err
 	}
+
+	injectErr := jaeger_server.Tracer.Inject(span.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(req.Header))
+	if injectErr != nil {
+		log.Fatalf("%s: Couldn't inject headers", err)
+	}
+
+	resp, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+	content, err := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+
+	if err != nil {
+		return "", err
+	}
+	return string(content), err
 }
