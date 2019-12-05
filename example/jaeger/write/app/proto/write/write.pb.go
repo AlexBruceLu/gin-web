@@ -110,16 +110,16 @@ func init() {
 func init() { proto.RegisterFile("write.proto", fileDescriptor_67966b2b12a73214) }
 
 var fileDescriptor_67966b2b12a73214 = []byte{
-	// 134 bytes of a gzipped FileDescriptorProto
+	// 132 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2e, 0x2f, 0xca, 0x2c,
 	0x49, 0xd5, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x05, 0x73, 0x94, 0x64, 0xb9, 0xd8, 0x83,
 	0x52, 0x0b, 0x4b, 0x53, 0x8b, 0x4b, 0x84, 0x84, 0xb8, 0x58, 0xf2, 0x12, 0x73, 0x53, 0x25, 0x18,
 	0x15, 0x18, 0x35, 0x38, 0x83, 0xc0, 0x6c, 0x25, 0x15, 0x2e, 0x8e, 0xa0, 0xd4, 0xe2, 0x82, 0xfc,
 	0xbc, 0xe2, 0x54, 0x21, 0x09, 0x2e, 0xf6, 0xdc, 0xd4, 0xe2, 0xe2, 0xc4, 0x74, 0x98, 0x12, 0x18,
-	0xd7, 0xc8, 0x8c, 0x8b, 0x25, 0x28, 0x35, 0x31, 0x45, 0x48, 0x8f, 0x8b, 0x33, 0x1c, 0x64, 0xaa,
-	0x4b, 0x62, 0x49, 0xa2, 0x10, 0x9f, 0x1e, 0xc4, 0x3a, 0xa8, 0xf1, 0x52, 0xfc, 0x70, 0x3e, 0xc4,
-	0x3c, 0x25, 0x86, 0x24, 0x36, 0xb0, 0x53, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x6f, 0x82,
-	0x41, 0x21, 0x99, 0x00, 0x00, 0x00,
+	0xd7, 0xc8, 0x9c, 0x8b, 0x35, 0x1c, 0x64, 0x9a, 0x90, 0x1e, 0x17, 0x27, 0x98, 0xe1, 0x92, 0x58,
+	0x92, 0x28, 0xc4, 0xa7, 0x07, 0xb1, 0x0f, 0x6a, 0xbe, 0x14, 0x3f, 0x9c, 0x0f, 0x31, 0x50, 0x89,
+	0x21, 0x89, 0x0d, 0xec, 0x16, 0x63, 0x40, 0x00, 0x00, 0x00, 0xff, 0xff, 0xb3, 0x7d, 0xc4, 0x7d,
+	0x9a, 0x00, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -130,72 +130,72 @@ var _ grpc.ClientConn
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion4
 
-// ReadClient is the client API for Read service.
+// WriteClient is the client API for Write service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type ReadClient interface {
+type WriteClient interface {
 	WriteData(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
 }
 
-type readClient struct {
+type writeClient struct {
 	cc *grpc.ClientConn
 }
 
-func NewReadClient(cc *grpc.ClientConn) ReadClient {
-	return &readClient{cc}
+func NewWriteClient(cc *grpc.ClientConn) WriteClient {
+	return &writeClient{cc}
 }
 
-func (c *readClient) WriteData(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
+func (c *writeClient) WriteData(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
 	out := new(Response)
-	err := c.cc.Invoke(ctx, "/write.Read/WriteData", in, out, opts...)
+	err := c.cc.Invoke(ctx, "/write.Write/WriteData", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// ReadServer is the server API for Read service.
-type ReadServer interface {
+// WriteServer is the server API for Write service.
+type WriteServer interface {
 	WriteData(context.Context, *Request) (*Response, error)
 }
 
-// UnimplementedReadServer can be embedded to have forward compatible implementations.
-type UnimplementedReadServer struct {
+// UnimplementedWriteServer can be embedded to have forward compatible implementations.
+type UnimplementedWriteServer struct {
 }
 
-func (*UnimplementedReadServer) WriteData(ctx context.Context, req *Request) (*Response, error) {
+func (*UnimplementedWriteServer) WriteData(ctx context.Context, req *Request) (*Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method WriteData not implemented")
 }
 
-func RegisterReadServer(s *grpc.Server, srv ReadServer) {
-	s.RegisterService(&_Read_serviceDesc, srv)
+func RegisterWriteServer(s *grpc.Server, srv WriteServer) {
+	s.RegisterService(&_Write_serviceDesc, srv)
 }
 
-func _Read_WriteData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _Write_WriteData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(Request)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(ReadServer).WriteData(ctx, in)
+		return srv.(WriteServer).WriteData(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/write.Read/WriteData",
+		FullMethod: "/write.Write/WriteData",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReadServer).WriteData(ctx, req.(*Request))
+		return srv.(WriteServer).WriteData(ctx, req.(*Request))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _Read_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "write.Read",
-	HandlerType: (*ReadServer)(nil),
+var _Write_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "write.Write",
+	HandlerType: (*WriteServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "WriteData",
-			Handler:    _Read_WriteData_Handler,
+			Handler:    _Write_WriteData_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

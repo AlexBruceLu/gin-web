@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package write;
 
-service Read {
+service Write {
   rpc WriteData(Request) returns (Response) {}
 }
 
