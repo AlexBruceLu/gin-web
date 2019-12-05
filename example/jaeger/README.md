@@ -1,4 +1,4 @@
-## Demo介绍
+Demo介绍
 
 **这是一个 Jaeger 链路追踪的 Demo，里面包括 5 个 Service 端，如图所示：**
 
@@ -96,6 +96,6 @@ cd go-gin-api && go run main.go
 
 ## 效果
 
-[![img](https://github.com/xinliangnote/Go/raw/master/03-go-gin-api%20%5B%E6%96%87%E6%A1%A3%5D/images/jaeger_demo_2.png)](https://github.com/xinliangnote/Go/blob/master/03-go-gin-api [文档]/images/jaeger_demo_2.png)
+![img](https://github.com/xinliangnote/Go/raw/master/03-go-gin-api%20%5B%E6%96%87%E6%A1%A3%5D/images/jaeger_demo_2.png)
 
-[![img](https://github.com/xinliangnote/Go/raw/master/03-go-gin-api%20%5B%E6%96%87%E6%A1%A3%5D/images/jaeger_demo_3.png)](https://github.com/xinliangnote/Go/blob/master/03-go-gin-api [文档]/images/jaeger_demo_3.png)
+![img](https://github.com/xinliangnote/Go/raw/master/03-go-gin-api%20%5B%E6%96%87%E6%A1%A3%5D/images/jaeger_demo_3.png)
