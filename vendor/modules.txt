@@ -1,5 +1,7 @@
 # github.com/fatih/color v1.7.0
 github.com/fatih/color
+# github.com/gin-contrib/pprof v1.2.1
+github.com/gin-contrib/pprof
 # github.com/gin-contrib/sse v0.1.0
 github.com/gin-contrib/sse
 # github.com/gin-gonic/gin v1.5.0
