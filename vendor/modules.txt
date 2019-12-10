@@ -17,6 +17,7 @@ github.com/go-playground/universal-translator
 # github.com/golang/protobuf v1.3.2
 github.com/golang/protobuf/proto
 github.com/golang/protobuf/ptypes
+github.com/golang/protobuf/protoc-gen-go/descriptor
 github.com/golang/protobuf/ptypes/any
 github.com/golang/protobuf/ptypes/duration
 github.com/golang/protobuf/ptypes/timestamp
@@ -76,6 +77,7 @@ go.uber.org/atomic
 golang.org/x/lint/golint
 golang.org/x/lint
 # golang.org/x/net v0.0.0-20191028085509-fe3aa8a45271
+golang.org/x/net/context
 golang.org/x/net/trace
 golang.org/x/net/internal/timeseries
 golang.org/x/net/http2
@@ -102,13 +104,14 @@ google.golang.org/grpc
 google.golang.org/grpc/codes
 google.golang.org/grpc/status
 google.golang.org/grpc/metadata
+google.golang.org/grpc/reflection
+google.golang.org/grpc/grpclog
 google.golang.org/grpc/balancer
 google.golang.org/grpc/balancer/roundrobin
 google.golang.org/grpc/connectivity
 google.golang.org/grpc/credentials
 google.golang.org/grpc/encoding
 google.golang.org/grpc/encoding/proto
-google.golang.org/grpc/grpclog
 google.golang.org/grpc/internal
 google.golang.org/grpc/internal/backoff
 google.golang.org/grpc/internal/balancerload
@@ -127,6 +130,7 @@ google.golang.org/grpc/resolver/passthrough
 google.golang.org/grpc/serviceconfig
 google.golang.org/grpc/stats
 google.golang.org/grpc/tap
+google.golang.org/grpc/reflection/grpc_reflection_v1alpha
 google.golang.org/grpc/balancer/base
 google.golang.org/grpc/credentials/internal
 google.golang.org/grpc/binarylog/grpc_binarylog_v1
