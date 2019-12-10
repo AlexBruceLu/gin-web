@@ -3,14 +3,14 @@ package logger
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"gin-web/app/config"
 	"gin-web/app/utils/response"
+	utils "gin-web/example/jaeger/sing/app/util"
+	"gin-web/example/jaeger/speak/app/util"
 	"os"
-	"time"
 
 	"github.com/gin-gonic/gin"
-	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
-	"github.com/rifflock/lfshook"
 	log "github.com/sirupsen/logrus"
 )
 
@@ -41,6 +41,7 @@ func handleAccessChannel() {
 	return
 }
 
+/*
 func Setup() gin.HandlerFunc {
 	// go handleAccessChannel()
 	src, err := os.OpenFile(config.AppAccessLogName, os.O_APPEND|os.O_CREATE|os.O_WRONLY, os.ModeAppend)
@@ -117,8 +118,62 @@ func Setup() gin.HandlerFunc {
 			"response_code":     responseCode,
 			"responseMsg":       responseMsg,
 			"response_data":     responseData,
-			"cost_time":         latencyTime.Milliseconds(),
+			"cost_time":         latencyTime.Nanoseconds() / 1000000,
 		}).Info()
 
+	}
+}
+*/
+
+func SetUp() gin.HandlerFunc {
+	go handleAccessChannel()
+
+	return func(c *gin.Context) {
+
+		bodyLogWriter := &bodyLogWriter{body: bytes.NewBufferString(""), ResponseWriter: c.Writer}
+		c.Writer = bodyLogWriter
+
+		startTime := util.GetCurrentMilliUnix()
+		c.Next()
+		responseBody := bodyLogWriter.body.String()
+
+		var resposeCode int
+		var responseMsg string
+		var responseData interface{}
+
+		if responseBody != "" {
+			res := response.Response{}
+			err := json.Unmarshal([]byte(responseBody), &res)
+			if err == nil {
+				resposeCode = res.Code
+				responseMsg = res.Message
+				responseData = res.Data
+			}
+		}
+
+		endTime := util.GetCurrentMilliUnix()
+		if c.Request.Method == "POST" {
+			c.Request.ParseForm()
+		}
+
+		// 日志格式
+		accessLogMap := make(map[string]interface{})
+
+		accessLogMap["request_time"] = startTime
+		accessLogMap["request_method"] = c.Request.Method
+		accessLogMap["request_uri"] = c.Request.RequestURI
+		accessLogMap["request_proto"] = c.Request.Proto
+		accessLogMap["request_ua"] = c.Request.UserAgent()
+		accessLogMap["request_referer"] = c.Request.Referer()
+		accessLogMap["request_post_data"] = c.Request.PostForm.Encode()
+		accessLogMap["request_client_ip"] = c.ClientIP()
+		accessLogMap["response_time"] = endTime
+		accessLogMap["response_code"] = resposeCode
+		accessLogMap["response_data"] = responseData
+		accessLogMap["response_msg"] = responseMsg
+		accessLogMap["cost_time"] = fmt.Sprintf("%v ms", endTime-startTime)
+
+		accessLogJSON, _ := utils.JsonEncode(accessLogMap)
+		accessChannel <- accessLogJSON
 	}
 }
